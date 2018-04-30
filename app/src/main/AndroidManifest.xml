@@ -20,12 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-            <meta-data android:resource="@xml/nfc_tech_filter"
-                android:name="android.nfc.action.TECH_DISCOVERED">
-            </meta-data>
 
         </activity>
     </application>

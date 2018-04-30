@@ -1,59 +1,81 @@
 package com.tspindola.bilhetagemautopass;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.support.v7.app.AppCompatActivity;
+import android.nfc.tech.IsoDep;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
+import android.nfc.tech.Ndef;
+import android.nfc.tech.NfcA;
+import android.nfc.tech.NfcB;
+import android.nfc.tech.NfcF;
+import android.nfc.tech.NfcV;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.math.BigInteger;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenu extends Activity {
 
-    public static final String TAG = "NfcDemo";
-
-    private TextView mTextView;
-    private NfcAdapter mNfcAdapter;
+    // list of NFC technologies detected:
+    private final String[][] techList = new String[][] {
+            new String[] {
+                    NfcA.class.getName(),
+                    NfcB.class.getName(),
+                    NfcF.class.getName(),
+                    NfcV.class.getName(),
+                    IsoDep.class.getName(),
+                    MifareClassic.class.getName(),
+                    MifareUltralight.class.getName(),
+                    Ndef.class.getName()
+            }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("State Machine","onCreate called.");
         setContentView(R.layout.activity_main_menu);
-
-        mTextView = findViewById(R.id.textView_explanation);
-
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (mNfcAdapter == null) {
-            // Stop here, we definitely need NFC
-            Toast.makeText(this, R.string.nfc_not_found, Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-        if (!mNfcAdapter.isEnabled()) {
-            mTextView.setText(R.string.nfc_inactive);
-        } else {
-            mTextView.setText(R.string.explanation);
-        }
-        handleIntent(getIntent());
     }
-    
-    private void handleIntent(Intent intent) {
-        PendingIntent mPendingIntent = PendingIntent.getActivity(this, 0,
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("State Machine","onResume called.");
+        // creating pending intent:
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
-        NfcAdapter nfc_adapter=NfcAdapter.getDefaultAdapter(this);
-        IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
-
-        Tag myTag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        Log.i("tag ID", myTag.getId().toString());
+        // creating intent receiver for NFC events:
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
+        filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
+        // enabling foreground dispatch for getting intent from NFC event:
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
     }
 
-    static String bin2hex(byte[] data) {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("State Machine","onPause called.");
+        // disabling foreground dispatch:
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i("State Machine","onNewIntent called.");
+        if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+            Log.i("NFC Tag", ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+        }
+    }
+
+    private String ByteArrayToHexString(byte [] data) {
         return String.format("%0" + (data.length * 2) + "X", new BigInteger(1,data));
     }
 }
