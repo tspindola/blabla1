@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.nfc.NfcAdapter;
 import android.nfc.tech.IsoDep;
 import android.nfc.tech.MifareClassic;
@@ -15,6 +16,10 @@ import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.math.BigInteger;
 
@@ -45,6 +50,26 @@ public class MainMenu extends Activity {
     protected void onResume() {
         super.onResume();
         Log.i("State Machine","onResume called.");
+
+        // adjusting the screen elements
+        TextView tvNFCActive = findViewById(R.id.textView_explanation);
+
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if(null == nfcAdapter)
+        {
+            Toast.makeText(this, R.string.nfc_not_found, Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+        if (nfcAdapter.isEnabled()) {
+            tvNFCActive.setTextColor(Color.GREEN);
+            tvNFCActive.setText(R.string.explanation);
+        } else {
+            tvNFCActive.setTextColor(Color.RED);
+            tvNFCActive.setText(R.string.nfc_inactive);
+        }
+
         // creating pending intent:
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -54,7 +79,6 @@ public class MainMenu extends Activity {
         filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
         filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
         // enabling foreground dispatch for getting intent from NFC event:
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
     }
 
@@ -71,7 +95,11 @@ public class MainMenu extends Activity {
     protected void onNewIntent(Intent intent) {
         Log.i("State Machine","onNewIntent called.");
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-            Log.i("NFC Tag", ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+            TextView tvInfo = findViewById(R.id.tvInfo);
+            String uid = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+
+            tvInfo.setText("NFC Tag = "+ uid);
+            Log.i("NFC Tag",uid);
         }
     }
 

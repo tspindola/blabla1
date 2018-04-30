@@ -8,8 +8,33 @@
 
     <TextView
         android:id="@+id/textView_explanation"
-        android:layout_width="150dp"
-        android:layout_height="38dp"
-        android:text="@string/explanation" />
+        android:layout_width="173dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/placeholder"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/holo_green_dark" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="238dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/start_info"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_explanation"
+        tools:textColor="@android:color/holo_blue_dark" />
 
 </android.support.constraint.ConstraintLayout>

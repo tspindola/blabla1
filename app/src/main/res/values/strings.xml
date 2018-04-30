@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">BilhetagemAutopass</string>
     <string name="explanation">NFC Ativo</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="start_info">Favor aproximar seu dispositivo NFC</string>
     <string name="nfc_not_found">Este dispositivo não possui NFC</string>
     <string name="nfc_inactive">NFC Inativo</string>
 </resources>
