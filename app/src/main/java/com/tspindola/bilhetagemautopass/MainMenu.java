@@ -18,10 +18,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.math.BigInteger;
+import com.tspindola.bilhetagemautopass.datamodel.*;
 
 public class MainMenu extends Activity {
 
