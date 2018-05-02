@@ -1,0 +1,201 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4244682032162840537",
+      "lastPropertyId": "5:8996840765565316249",
+      "name": "Card",
+      "properties": [
+        {
+          "id": "1:4685319524406186892",
+          "name": "id"
+        },
+        {
+          "id": "2:4038023549074352389",
+          "name": "uid"
+        },
+        {
+          "id": "3:2468617829690115179",
+          "name": "type"
+        },
+        {
+          "id": "4:6152970628215083613",
+          "name": "credits"
+        },
+        {
+          "id": "5:8996840765565316249",
+          "indexId": "1:8813675255318472465",
+          "name": "personId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:4151446288655632174",
+      "lastPropertyId": "2:7676319323158093393",
+      "name": "Company",
+      "properties": [
+        {
+          "id": "1:1626934443941044168",
+          "name": "id"
+        },
+        {
+          "id": "2:7676319323158093393",
+          "name": "name"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:5343053047661332838",
+      "lastPropertyId": "2:8901453870972697150",
+      "name": "Fee",
+      "properties": [
+        {
+          "id": "1:2310088538362504480",
+          "name": "id"
+        },
+        {
+          "id": "2:8901453870972697150",
+          "name": "value"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:686129744404751768",
+      "lastPropertyId": "6:5975655561669779100",
+      "name": "Person",
+      "properties": [
+        {
+          "id": "1:6584791210186986975",
+          "name": "id"
+        },
+        {
+          "id": "2:5068225812785543975",
+          "name": "name"
+        },
+        {
+          "id": "3:5960000293898449292",
+          "name": "cpf"
+        },
+        {
+          "id": "4:6117196260749561586",
+          "name": "phone"
+        },
+        {
+          "id": "5:5624887393848720242",
+          "name": "address"
+        },
+        {
+          "id": "6:5975655561669779100",
+          "name": "email"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:6650504917319142675",
+      "lastPropertyId": "6:1792547221958763629",
+      "name": "Route",
+      "properties": [
+        {
+          "id": "1:5707974890046198713",
+          "name": "id"
+        },
+        {
+          "id": "2:4433657838546795913",
+          "name": "description"
+        },
+        {
+          "id": "3:8038693162777563165",
+          "name": "length"
+        },
+        {
+          "id": "4:7767743903424356199",
+          "name": "capacity"
+        },
+        {
+          "id": "5:4819032003986401631",
+          "indexId": "2:6239911667770357975",
+          "name": "companyId"
+        },
+        {
+          "id": "6:1792547221958763629",
+          "indexId": "3:7775441538326936834",
+          "name": "feeId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:1025245927671865017",
+      "lastPropertyId": "5:1297596761272636006",
+      "name": "Vehicle",
+      "properties": [
+        {
+          "id": "1:5742986944935293069",
+          "name": "id"
+        },
+        {
+          "id": "2:2227970296305184788",
+          "name": "type"
+        },
+        {
+          "id": "3:7439824108904598053",
+          "name": "companyObjectId"
+        },
+        {
+          "id": "4:2072096899423219445",
+          "name": "manufactureYear"
+        },
+        {
+          "id": "5:1297596761272636006",
+          "indexId": "4:3542983377756841844",
+          "name": "companyId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:900816246863087931",
+      "lastPropertyId": "4:4372373728683108246",
+      "name": "TravelLog",
+      "properties": [
+        {
+          "id": "1:3653988593182511136",
+          "name": "id"
+        },
+        {
+          "id": "2:1776296817708186999",
+          "indexId": "5:3221458926424895498",
+          "name": "cardId"
+        },
+        {
+          "id": "3:5730065985034770975",
+          "indexId": "6:2736668773722187942",
+          "name": "routeId"
+        },
+        {
+          "id": "4:4372373728683108246",
+          "indexId": "7:6626193413380585156",
+          "name": "vehicleId"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "7:900816246863087931",
+  "lastIndexId": "7:6626193413380585156",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -25,7 +25,7 @@
     <TextView
         android:id="@+id/tvInfo"
         android:layout_width="238dp"
-        android:layout_height="74dp"
+        android:layout_height="159dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"

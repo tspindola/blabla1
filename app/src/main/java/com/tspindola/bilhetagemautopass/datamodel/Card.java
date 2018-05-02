@@ -13,7 +13,7 @@ public class Card {
     private String type;
     private double credits;
     @Backlink
-    ToOne<Person> person;
+    public ToOne<Person> person;
 
     public long getId() {
         return id;

@@ -13,8 +13,8 @@ public class Route {
     public double length;
     public int capacity;
     @Backlink
-    ToOne<Company> company;
-    ToOne<Fee> fee;
+    public ToOne<Company> company;
+    public ToOne<Fee> fee;
 
     public long getId() {
         return id;

@@ -13,7 +13,7 @@ public class Vehicle {
     private String companyObjectId;
     private int manufactureYear;
     @Backlink
-    ToOne<Company> company;
+    public ToOne<Company> company;
 
     public String getCompanyObjectId() {
         return companyObjectId;
