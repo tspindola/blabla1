@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Locale;
 
 import com.tspindola.bilhetagemautopass.datamodel.*;
 
@@ -27,6 +28,8 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
 public class MainMenu extends Activity {
+
+    private static final Locale BRAZIL = new Locale("pt","BR");
 
     // list of NFC technologies detected:
     private final String[][] techList = new String[][] {
@@ -255,16 +258,17 @@ public class MainMenu extends Activity {
         Double amount = r.fee.getTarget().getValue();
         Double credits = c.getCredits();
 
-        if(credits > amount)
+        if(credits >= amount)
         {
             credits = credits - amount;
             String name = c.person.getTarget().getName();
 
             c.setCredits(credits);
             cardBox.put(c);
+            String temp = String.format(BRAZIL,"%1$,.2f", credits);
 
             TextView tvInfo = findViewById(R.id.tvInfo);
-            tvInfo.setText("Bem vindo, "+name + ". Seu novo saldo é de R$"+ credits.toString()+".");
+            tvInfo.setText("Bem vindo, "+name + ". Seu novo saldo é de R$"+ temp +".");
         }
     }
 }
