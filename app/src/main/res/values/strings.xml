@@ -5,4 +5,14 @@
     <string name="start_info">Favor aproximar seu dispositivo NFC</string>
     <string name="nfc_not_found">Este dispositivo não possui NFC</string>
     <string name="nfc_inactive">NFC Inativo</string>
+    <string name="menu_validator">Inicie o leitor</string>
+    <string name="menu_register">Cadastro de informações</string>
+    <string name="menu_travellogs">Log de Viagens</string>
+    <string name="menu_settings">Configurações do leitor</string>
+    <string name="bt_ok">Ok</string>
+    <string name="tvCompany">Operadora:</string>
+    <string name="tvRoute">Linha:</string>
+    <string name="tvVehicle">Veículo:</string>
+    <string name="btSave">Salvar</string>
+    <string name="emptyDb">Dados não encontrados!</string>
 </resources>
