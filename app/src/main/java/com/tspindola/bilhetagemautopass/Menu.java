@@ -15,6 +15,7 @@ public class Menu extends AppCompatActivity {
 
         Button btSettings = findViewById(R.id.btSettings);
         Button btReader = findViewById(R.id.btStartNFC);
+        Button btRegister = findViewById(R.id.btRegister);
 
         btSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -26,6 +27,13 @@ public class Menu extends AppCompatActivity {
         btReader.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, Reader.class);
+                startActivity(intent);
+            }
+        });
+
+        btRegister.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, Register.class);
                 startActivity(intent);
             }
         });

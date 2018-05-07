@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.nfc.NfcAdapter;
 import android.nfc.tech.IsoDep;
@@ -15,6 +16,7 @@ import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,8 @@ import java.math.BigInteger;
 import java.util.Locale;
 
 import com.tspindola.bilhetagemautopass.datamodel.*;
+
+import org.w3c.dom.Text;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -59,8 +63,27 @@ public class Reader extends Activity {
         super.onResume();
         Log.i("State Machine","onResume called.");
 
-        // adjusting the screen elements
         TextView tvNFCActive = findViewById(R.id.textView_explanation);
+        TextView tvDateTime = findViewById(R.id.tvTimer);
+        TextView tvCompany = findViewById(R.id.tvCompany);
+        TextView tvRoute = findViewById(R.id.tvRoute);
+        TextView tvVehicle = findViewById(R.id.tvVehicle);
+
+        BoxStore boxStore = ((App) getApplication()).getBoxStore();
+        Box<Company> companyBox = boxStore.boxFor(Company.class);
+        Box<Route> routeBox = boxStore.boxFor(Route.class);
+        Box<Vehicle> vehicleBox = boxStore.boxFor(Vehicle.class);
+
+        tvDateTime.setText("(Adicionar hora)");
+        SharedPreferences sp = ((App) getApplication()).getSharedPreferences();
+
+        long index = sp.getLong("Company",0);
+        tvCompany.setText(companyBox.get(index).getName());
+        index = sp.getLong("Route",0);
+        tvRoute.setText(routeBox.get(index).getDescription());
+        index = sp.getLong("Vehicle",0);
+        tvVehicle.setText("Veículo: "+vehicleBox.get(index).getCompanyObjectId());
+
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(null == nfcAdapter)
