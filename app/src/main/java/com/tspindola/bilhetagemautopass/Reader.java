@@ -19,7 +19,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Locale;
 
 import com.tspindola.bilhetagemautopass.datamodel.*;
@@ -27,7 +26,7 @@ import com.tspindola.bilhetagemautopass.datamodel.*;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
-public class MainMenu extends Activity {
+public class Reader extends Activity {
 
     private static final Locale BRAZIL = new Locale("pt","BR");
 
@@ -50,7 +49,7 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         Log.i("State Machine","onCreate called.");
 
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_reader);
 
         initDatabase();
     }

@@ -14,10 +14,18 @@ public class Menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         Button btSettings = findViewById(R.id.btSettings);
+        Button btReader = findViewById(R.id.btStartNFC);
 
         btSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, Settings.class);
+                startActivity(intent);
+            }
+        });
+
+        btReader.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, Reader.class);
                 startActivity(intent);
             }
         });

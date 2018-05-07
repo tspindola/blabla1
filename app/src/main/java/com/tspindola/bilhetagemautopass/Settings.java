@@ -1,5 +1,6 @@
 package com.tspindola.bilhetagemautopass;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,28 +30,35 @@ public class Settings extends AppCompatActivity implements OnItemSelectedListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("Log Debug","Settings onCreate called");
+
         setContentView(R.layout.activity_settings);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        Log.d("Log Debug","Settings onResume called");
 
         Spinner spCompany = findViewById(R.id.spinCompany);
         Spinner spRoute = findViewById(R.id.spinRoute);
         Spinner spVehicle = findViewById(R.id.spinVehicle);
-
-        spCompany.setOnItemSelectedListener(this);
-        spRoute.setOnItemSelectedListener(this);
-        spVehicle.setOnItemSelectedListener(this);
 
         BoxStore boxStore = ((App) getApplication()).getBoxStore();
         Box<Company> companyBox = boxStore.boxFor(Company.class);
         Box<Route> routeBox = boxStore.boxFor(Route.class);
         Box<Vehicle> vehicleBox = boxStore.boxFor(Vehicle.class);
 
-        configureSpinner(spCompany,companyBox,Company_.name);
-        configureSpinner(spRoute,routeBox, Route_.description);
-        configureSpinner(spVehicle,vehicleBox, Vehicle_.companyObjectId);
+        configureSpinner(spCompany,companyBox,Company_.name,"Company");
+        configureSpinner(spRoute,routeBox, Route_.description,"Route");
+        configureSpinner(spVehicle,vehicleBox, Vehicle_.companyObjectId,"Vehicle");
     }
 
-    private void configureSpinner(Spinner s, Box b, Property p)
+    private void configureSpinner(Spinner s, Box b, Property p, String id)
     {
+        Log.d("Log Debug","Configuring Spinner");
         if(b.count()==0)
         {
             Toast.makeText(this,R.string.emptyDb,Toast.LENGTH_SHORT);
@@ -63,34 +71,64 @@ public class Settings extends AppCompatActivity implements OnItemSelectedListene
                     android.R.layout.simple_spinner_item, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             s.setAdapter(adapter);
-        }
-    }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
+            //Inicializar com o valor salvo
+            SharedPreferences sp = ((App) getApplication()).getSharedPreferences();
+            long index = sp.getLong(id,0);
+            Log.d("Log Debug","Setting spinner selection = " + index);
+            s.setSelection((int)index-1, false);
+
+            s.setOnItemSelectedListener(Settings.this);
+        }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        Log.d("Log Debug","Spinner item selected");
+
+        SharedPreferences.Editor spEditor = ((App) getApplication()).getSharedPreferencesEditor();
         int s = ((Spinner) parent).getId();
-        Log.d("Info Debug","Spinner selected: "+s);
+
+        BoxStore boxStore = ((App) getApplication()).getBoxStore();
+        Box<Company> companyBox = boxStore.boxFor(Company.class);
+        Box<Route> routeBox = boxStore.boxFor(Route.class);
+        Box<Vehicle> vehicleBox = boxStore.boxFor(Vehicle.class);
+
+        String label;
+
         if(s == R.id.spinCompany) {
-            String label = parent.getItemAtPosition(position).toString();
-            Toast.makeText(parent.getContext(), "You selected: " + label, Toast.LENGTH_LONG).show();
+            Log.d("Log Debug","Spinner = Company");
+            label = parent.getItemAtPosition(position).toString();
+            long aux = getObjectBoxID(companyBox, Company_.name,label);
+            Log.d("Log Debug","ID Salvo: "+aux);
+            spEditor.putLong("Company",aux);
+            spEditor.commit();
         }
         else if(s == R.id.spinRoute) {
-            String label = parent.getItemAtPosition(position).toString();
-            Toast.makeText(parent.getContext(), "You selected: " + label, Toast.LENGTH_LONG).show();
+            Log.d("Log Debug","Spinner = Route");
+            label = parent.getItemAtPosition(position).toString();
+            long aux = getObjectBoxID(routeBox, Route_.description,label);
+            Log.d("Log Debug","ID Salvo: "+aux);
+            spEditor.putLong("Route",aux);
+            spEditor.commit();
         }
         else if(s == R.id.spinVehicle) {
-            String label = parent.getItemAtPosition(position).toString();
-            Toast.makeText(parent.getContext(), "You selected: " + label, Toast.LENGTH_LONG).show();
+            Log.d("Log Debug","Spinner = Vehicle");
+            label = parent.getItemAtPosition(position).toString();
+            long aux = getObjectBoxID(vehicleBox, Vehicle_.companyObjectId,label);
+            Log.d("Log Debug","ID Salvo: "+aux);
+            spEditor.putLong("Vehicle",aux);
+            spEditor.commit();
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
 
+    }
+
+    public long getObjectBoxID(Box b, Property p, String name){
+        return b.query().equal(p,name).build().findIds()[0];
     }
 }
