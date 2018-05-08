@@ -3,6 +3,7 @@
     package="com.tspindola.bilhetagemautopass">
 
     <uses-permission android:name="android.permission.NFC" />
+    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -17,11 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Reader">
-            <intent-filter>
-                <action android:name="android.nfc.action.TAG_DISCOVERED" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity android:name=".Menu">
             <intent-filter>
@@ -31,7 +28,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".Settings" />
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".Writer">
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

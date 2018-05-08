@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import io.objectbox.BoxStore;
+import io.objectbox.android.AndroidObjectBrowser;
+
 public class Menu extends AppCompatActivity {
 
     @Override
@@ -16,6 +19,7 @@ public class Menu extends AppCompatActivity {
         Button btSettings = findViewById(R.id.btSettings);
         Button btReader = findViewById(R.id.btStartNFC);
         Button btRegister = findViewById(R.id.btRegister);
+        Button btLogs = findViewById(R.id.btLogs);
 
         btSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -34,6 +38,13 @@ public class Menu extends AppCompatActivity {
         btRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, Register.class);
+                startActivity(intent);
+            }
+        });
+
+        btLogs.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, Writer.class);
                 startActivity(intent);
             }
         });
