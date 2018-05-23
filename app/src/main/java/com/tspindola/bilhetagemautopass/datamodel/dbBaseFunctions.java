@@ -9,10 +9,15 @@ public class dbBaseFunctions {
     private DatabaseReference database;
     private String token;
 
-    public dbBaseFunctions()
+    public void start()
     {
         database = FirebaseDatabase.getInstance().getReference();
         token = FirebaseInstanceId.getInstance().getToken();
     }
-    
+
+    public void addCard(long id, String uid, String type)
+    {
+        Card c = new Card(id,uid,type);
+        database.child("Cards").child(Long.toString(c.getId())).setValue(c);
+    }
 }

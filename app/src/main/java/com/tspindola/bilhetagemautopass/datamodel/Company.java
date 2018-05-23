@@ -1,11 +1,9 @@
 package com.tspindola.bilhetagemautopass.datamodel;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-@Entity
+@IgnoreExtraProperties
 public class Company {
-    @Id(assignable = true)
     private long id;
     private String name;
 
@@ -13,15 +11,15 @@ public class Company {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Company(){}
+
+    public Company(long id, String name)
+    {
+        this.id = id;
         this.name = name;
     }
 }

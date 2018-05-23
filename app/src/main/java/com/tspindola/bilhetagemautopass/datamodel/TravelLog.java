@@ -1,26 +1,23 @@
 package com.tspindola.bilhetagemautopass.datamodel;
 
-import io.objectbox.annotation.Backlink;
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-@Entity
+@IgnoreExtraProperties
 public class TravelLog {
-    @Id(assignable = true)
     private long id;
-    //TODO: Adicionar horário e localização
+    private String datetime;
+    private long cardID;
+    private long routeID;
+    private long vehicleID;
 
-    @Backlink
-    public ToOne<Card> card;
-    public ToOne<Route> route;
-    public ToOne<Vehicle> vehicle;
+    public TravelLog(){}
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
+    public TravelLog(long id, String datetime, long cardID, long routeID, long vehicleID)
+    {
         this.id = id;
+        this.datetime = datetime;
+        this.cardID = cardID;
+        this.routeID = routeID;
+        this.vehicleID = vehicleID;
     }
 }

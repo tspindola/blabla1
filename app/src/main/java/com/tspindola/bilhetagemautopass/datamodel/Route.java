@@ -1,50 +1,40 @@
 package com.tspindola.bilhetagemautopass.datamodel;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToOne;
 
-@Entity
+@IgnoreExtraProperties
 public class Route {
-    @Id(assignable = true)
     private long id;
     private String description;
-    public double length;
-    public int capacity;
-    @Backlink
-    public ToOne<Company> company;
-    public ToOne<Fee> fee;
+    private double length;
+    private int capacity;
+    private long companyID;
+    private long feeID;
 
-    public long getId() {
-        return id;
-    }
+    public Route(){}
 
-    public void setId(long id) {
+    public Route(long id, String description, double length, int capacity, long companyID, long feeID)
+    {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getLength() {
-        return length;
-    }
-
-    public void setLength(double length) {
         this.length = length;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
         this.capacity = capacity;
+        this.companyID = companyID;
+        this.feeID = feeID;
+    }
+
+    public void setCompany(long companyID)
+    {
+        this.companyID = companyID;
+    }
+
+    public void setFee(long feeID)
+    {
+        this.feeID = feeID;
     }
 }

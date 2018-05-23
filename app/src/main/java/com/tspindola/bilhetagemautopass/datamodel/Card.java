@@ -1,49 +1,54 @@
 package com.tspindola.bilhetagemautopass.datamodel;
 
-import io.objectbox.annotation.Backlink;
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-@Entity
+@IgnoreExtraProperties
 public class Card {
-    @Id(assignable = true)
     private long id;
     private String uid;
     private String type;
     private double credits;
-    @Backlink
-    public ToOne<Person> person;
+    private long personID;
+
+    public Card(){}
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public double getCredits() {
         return credits;
     }
 
-    public void setCredits(double credits) {
-        this.credits = credits;
+    public long getPersonID() {
+        return personID;
+    }
+
+    public Card(long id, String uid, String type)
+    {
+
+        this.id = id;
+        this.uid = uid;
+        this.type = type;
+        this.credits = 0.0;
+        this.personID = 0;
+    }
+
+    public void setCredits(double amount)
+    {
+        this.credits = amount;
+    }
+
+    public void assignOwner(long personID)
+    {
+        this.personID = personID;
     }
 }

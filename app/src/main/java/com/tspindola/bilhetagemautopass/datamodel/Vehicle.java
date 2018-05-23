@@ -1,50 +1,23 @@
 package com.tspindola.bilhetagemautopass.datamodel;
 
-import io.objectbox.annotation.Backlink;
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-@Entity
+@IgnoreExtraProperties
 public class Vehicle {
-    @Id(assignable=true)
     private long id;
     private String type;
     private String companyObjectId;
     private int manufactureYear;
-    @Backlink
-    public ToOne<Company> company;
+    private long companyID;
 
-    public String getCompanyObjectId() {
-        return companyObjectId;
-    }
+    public Vehicle(){}
 
-    public void setCompanyObjectId(String companyObjectId) {
-        this.companyObjectId = companyObjectId;
-    }
-
-    public int getManufactureYear() {
-        return manufactureYear;
-    }
-
-    public void setManufactureYear(int manufactureYear) {
-        this.manufactureYear = manufactureYear;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
+    public Vehicle(long id, String type, String companyObjectId, int manufactureYear, long companyID)
+    {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
         this.type = type;
+        this.companyObjectId = companyObjectId;
+        this.manufactureYear = manufactureYear;
+        this.companyID = companyID;
     }
-
 }

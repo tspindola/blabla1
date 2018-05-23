@@ -1,27 +1,17 @@
 package com.tspindola.bilhetagemautopass.datamodel;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-@Entity
+@IgnoreExtraProperties
 public class Fee {
-    @Id(assignable = true)
     private long id;
     private double value;
 
-    public long getId() {
-        return id;
-    }
+    public Fee(){}
 
-    public void setId(long id) {
+    public Fee(long id, double value)
+    {
         this.id = id;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
         this.value = value;
     }
 }
