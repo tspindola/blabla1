@@ -15,4 +15,5 @@
     <string name="tvVehicle">Veículo:</string>
     <string name="btSave">Salvar</string>
     <string name="emptyDb">Dados não encontrados!</string>
+    <string name="initialLoad">Carregar dados de teste</string>
 </resources>

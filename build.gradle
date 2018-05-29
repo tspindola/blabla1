@@ -20,9 +20,6 @@ buildscript {
     repositories {
         jcenter()
     }
-    dependencies {
-        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
-    }
 }
 
 allprojects {

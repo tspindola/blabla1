@@ -10,6 +10,26 @@ public class Vehicle {
     private int manufactureYear;
     private long companyID;
 
+    public long getId() {
+        return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getCompanyObjectId() {
+        return companyObjectId;
+    }
+
+    public int getManufactureYear() {
+        return manufactureYear;
+    }
+
+    public long getCompanyID() {
+        return companyID;
+    }
+
     public Vehicle(){}
 
     public Vehicle(long id, String type, String companyObjectId, int manufactureYear, long companyID)

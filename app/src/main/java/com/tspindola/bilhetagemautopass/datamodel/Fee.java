@@ -14,4 +14,12 @@ public class Fee {
         this.id = id;
         this.value = value;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public double getValue() {
+        return value;
+    }
 }

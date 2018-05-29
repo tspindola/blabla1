@@ -2,11 +2,6 @@ package com.tspindola.bilhetagemautopass.datamodel;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import io.objectbox.annotation.Backlink;
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
-
 @IgnoreExtraProperties
 public class Route {
     private long id;
@@ -36,5 +31,29 @@ public class Route {
     public void setFee(long feeID)
     {
         this.feeID = feeID;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public long getCompanyID() {
+        return companyID;
+    }
+
+    public long getFeeID() {
+        return feeID;
     }
 }

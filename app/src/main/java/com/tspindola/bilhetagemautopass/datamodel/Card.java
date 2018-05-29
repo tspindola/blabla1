@@ -41,14 +41,4 @@ public class Card {
         this.credits = 0.0;
         this.personID = 0;
     }
-
-    public void setCredits(double amount)
-    {
-        this.credits = amount;
-    }
-
-    public void assignOwner(long personID)
-    {
-        this.personID = personID;
-    }
 }

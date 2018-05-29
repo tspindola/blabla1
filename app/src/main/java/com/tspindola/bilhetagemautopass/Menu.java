@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import io.objectbox.BoxStore;
-import io.objectbox.android.AndroidObjectBrowser;
-
 public class Menu extends AppCompatActivity {
 
     @Override
