@@ -130,14 +130,14 @@ public class Reader extends Activity {
     }
 
     public void initDatabase() {
-        dbBaseFunctions.start();
+        dbBaseFunctions.start(this);
 
-        initPersonDatabase();
-        initCardDatabase();
-        initFeeDatabase();
-        initCompanyDatabase();
-        initRouteDatabase();
-        initVehicleDatabase();
+        //initPersonDatabase();
+        //initCardDatabase();
+        //initFeeDatabase();
+        //initCompanyDatabase();
+        //initRouteDatabase();
+        //initVehicleDatabase();
     }
 
     private void initPersonDatabase() {

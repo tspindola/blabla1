@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1067797537013",
+    "firebase_url": "https://demoautopass-4ef12.firebaseio.com",
+    "project_id": "demoautopass-4ef12",
+    "storage_bucket": "demoautopass-4ef12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067797537013:android:676266c16b8531b9",
+        "android_client_info": {
+          "package_name": "com.tspindola.bilhetagemautopass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067797537013-gtd62jkfeg3pumap5icbp56qvgai5619.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1067797537013-gtd62jkfeg3pumap5icbp56qvgai5619.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2pdQRCDmD5PVX_Rwi-JedOVrc3k0Qaas"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

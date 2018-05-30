@@ -14,10 +14,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        //Configuring database
-        dbBaseFunctions.start();
-
+        Log.i("State Machine","Creating application");
         //Configuring SharedPreferences
         sharedPrefAP = getSharedPreferences("autopassSharedPref",0);
         editorSP = sharedPrefAP.edit();
