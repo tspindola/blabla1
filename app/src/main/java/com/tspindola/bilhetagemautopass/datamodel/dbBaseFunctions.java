@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tspindola.bilhetagemautopass.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ public class dbBaseFunctions {
     private static Fee feeHolder;
     private static Person personHolder;
     private static List<String> listHolder;
-    private static boolean isDataLoadingFinished = false;
 
     public static void start(Context context)
     {
@@ -236,51 +236,7 @@ public class dbBaseFunctions {
         return cardHolder;
     }
 
-    public static List<String> getListOfStringFromTable(final String tablename){
-        database = FirebaseDatabase.getInstance().getReference();
-        Log.i("Firebase","getListOfStringFromTable called for table "+tablename);
-        DatabaseReference tmp= database.child(tablename);
-        tmp.addListenerForSingleValueEvent(
-            new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.i("Firebase","onDataChange called with childrenCount = "
-                                                                +dataSnapshot.getChildrenCount());
-                    listHolder = new ArrayList<String>();
-                    for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                        String s = null;
-                        switch (tablename){
-                            case "Company":
-                                s = areaSnapshot.getValue(Company.class).getName();
-                                break;
-                            case "Route":
-                                s = areaSnapshot.getValue(Route.class).getDescription();
-                                break;
-                            case "Vehicle":
-                                s = areaSnapshot.getValue(Vehicle.class).getCompanyObjectId();
-                                break;
-                        }
-                        listHolder.add(s);
-                    }
-                    isDataLoadingFinished = true;
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            }
-        );
-        while(!isTaskFinished()) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                }
-            }, 100);
-        }
-        Log.i("Firebase","getListOfStringFromTable returned "+listHolder.size()+" objects.");
-        return listHolder;
-    }
-
-    public static void updateCreditsFromCard(long id, double newValue) {
+   public static void updateCreditsFromCard(long id, double newValue) {
         database = FirebaseDatabase.getInstance().getReference();
         Log.i("Firebase","updateCreditsFromCard called");
         database.child("Card").child(Long.toString(id)).child("credits").setValue(newValue);
@@ -350,14 +306,5 @@ public class dbBaseFunctions {
                     }
                 });
         return routeHolder;
-    }
-
-    public static boolean isTaskFinished(){
-        if(isDataLoadingFinished)
-        {
-            isDataLoadingFinished = false;
-            return true;
-        }
-        return false;
     }
 }
