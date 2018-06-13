@@ -99,35 +99,37 @@ public class Settings extends AppCompatActivity implements OnItemSelectedListene
         s.setOnItemSelectedListener(Settings.this);
     }
 
-    public void findByIdAndUpdateSharedPref(final String tablename, String id,
+    public void findByIdAndUpdateSharedPref(final String tablename, int table_id,
                                             final SharedPreferences.Editor spEditor){
         Log.i("Firebase","findById called for tablename = "+tablename);
         database.child(tablename)
                 .orderByChild("id")
-                .equalTo(id)
+                .equalTo(table_id)
                 .limitToFirst(1)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        long id = 0;
-                        switch (tablename){
-                            case "Company":
-                                Company c = dataSnapshot.getValue(Company.class);
-                                if(null != c)
-                                    id = c.getId();
-                                break;
-                            case "Vehicle":
-                                Vehicle v = dataSnapshot.getValue(Vehicle.class);
-                                if(null != v)
-                                    id = v.getId();
-                                break;
-                            case "Route":
-                                Route r = dataSnapshot.getValue(Route.class);
-                                if(null != r)
-                                    id = r.getId();
-                                break;
+                        for(DataSnapshot snap : dataSnapshot.getChildren()) {
+                            long id = 0;
+                            switch (tablename) {
+                                case "Company":
+                                    Company c = snap.getValue(Company.class);
+                                    if (null != c)
+                                        id = c.getId();
+                                    break;
+                                case "Vehicle":
+                                    Vehicle v = snap.getValue(Vehicle.class);
+                                    if (null != v)
+                                        id = v.getId();
+                                    break;
+                                case "Route":
+                                    Route r = snap.getValue(Route.class);
+                                    if (null != r)
+                                        id = r.getId();
+                                    break;
+                            }
+                            updateSharedPreferences(spEditor,tablename,id);
                         }
-                        updateSharedPreferences(spEditor,tablename,id);
                     }
 
                     @Override
@@ -175,17 +177,17 @@ public class Settings extends AppCompatActivity implements OnItemSelectedListene
         if(s == R.id.spinCompany) {
             Log.d("Log Debug","Spinner = Company");
             label = parent.getItemAtPosition(position).toString();
-            findByIdAndUpdateSharedPref("Company", Integer.toString(position),spEditor);
+            findByIdAndUpdateSharedPref("Company", position+1,spEditor);
         }
         else if(s == R.id.spinRoute) {
             Log.d("Log Debug","Spinner = Route");
             label = parent.getItemAtPosition(position).toString();
-            findByIdAndUpdateSharedPref("Route",Integer.toString(position),spEditor);
+            findByIdAndUpdateSharedPref("Route",position+1,spEditor);
         }
         else if(s == R.id.spinVehicle) {
             Log.d("Log Debug","Spinner = Vehicle");
             label = parent.getItemAtPosition(position).toString();
-            findByIdAndUpdateSharedPref("Vehicle",Integer.toString(position),spEditor);
+            findByIdAndUpdateSharedPref("Vehicle",position+1,spEditor);
         }
     }
 
